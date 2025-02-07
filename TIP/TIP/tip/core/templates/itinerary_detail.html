@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Itinerary Details{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">{{ itinerary.title }}</h1>
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text"><strong>Destination:</strong> {{ itinerary.destination }}</p>
+                <p class="card-text"><strong>Dates:</strong> {{ itinerary.start_date }} to {{ itinerary.end_date }}</p>
+                <p class="card-text"><strong>Activities:</strong> {{ itinerary.activities }}</p>
+                <p class="card-text"><strong>Expenses:</strong> {{ itinerary.expenses }}</p>
+                <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

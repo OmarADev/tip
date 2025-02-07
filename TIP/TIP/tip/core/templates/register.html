@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Register</h2>
+                    <form method="post" id="registrationForm">
+                        {% csrf_token %}
+                        
+                        <!-- Username Field -->
+                        <div class="form-group">
+                            <label for="id_username">Username</label>
+                            {{ form.username }}
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="form-group">
+                            <label for="id_password1">Password</label>
+                            {{ form.password1 }}
+                        </div>
+
+                        <!-- Password Confirmation Field -->
+                        <div class="form-group">
+                            <label for="id_password2">Password Confirmation</label>
+                            {{ form.password2 }}
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary btn-block mt-3">Register</button>
+                    </form>
+                    
+                    <!-- Login Link -->
+                    <p class="mt-3 text-center">
+                        Already have an account? <a href="{% url 'login' %}">Login here</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript to handle validation and pop-ups -->
+<script>
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevent form submission to handle validation
+
+        let username = document.getElementById('id_username').value;
+        let password1 = document.getElementById('id_password1').value;
+        let password2 = document.getElementById('id_password2').value;
+        
+        let errorMessage = '';
+
+        // Username Validation
+        if (!username || username.length > 150) {
+            errorMessage += 'Username is required and should be 150 characters or fewer.\n';
+        }
+
+        // Password Validation
+        if (!password1 || password1.length < 8 || password1 === username) {
+            errorMessage += 'Password must be at least 8 characters long and cannot be similar to the username.\n';
+        }
+
+        // Password Confirmation Validation
+        if (password1 !== password2) {
+            errorMessage += 'Passwords do not match.\n';
+        }
+
+        // Display error messages if any
+        if (errorMessage) {
+            alert(errorMessage);
+        } else {
+            this.submit();  // If no errors, submit the form
+        }
+    });
+</script>
+{% endblock %}

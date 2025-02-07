@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Itinerary{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Edit Itinerary</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ itinerary.title }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="destination" class="form-label">Destination</label>
+                <input type="text" class="form-control" id="destination" name="destination" value="{{ itinerary.destination }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="start_date" class="form-label">Start Date</label>
+                <input type="date" class="form-control" id="start_date" name="start_date" value="{{ itinerary.start_date|date:'Y-m-d' }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="end_date" class="form-label">End Date</label>
+                <input type="date" class="form-control" id="end_date" name="end_date" value="{{ itinerary.end_date|date:'Y-m-d' }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="activities" class="form-label">Activities</label>
+                <textarea class="form-control" id="activities" name="activities" rows="3">{{ itinerary.activities }}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="expenses" class="form-label">Expenses</label>
+                <textarea class="form-control" id="expenses" name="expenses" rows="3">{{ itinerary.expenses }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+{% endblock %}

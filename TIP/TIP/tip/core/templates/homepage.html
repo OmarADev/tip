@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="text-center mb-120 title-custom">
+        Your Itineraries
+    </h1>
+
+
+    {% if itineraries %}
+        <div class="row">
+            {% for itinerary in itineraries %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ itinerary.title }}</h5>
+                            <p class="card-text">{{ itinerary.destination }}</p>
+                            <p class="card-text"><small class="text-muted">{{ itinerary.start_date }} to {{ itinerary.end_date }}</small></p>
+                            <a href="{% url 'itinerary_detail' itinerary.id %}" class="btn btn-info btn-sm">View</a>
+                            <a href="{% url 'edit_itinerary' itinerary.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'delete_itinerary' itinerary.id %}" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="{% url 'share_itinerary' itinerary.id %}" class="btn btn-success btn-sm">Share</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center mt-120">
+            <h3 class="text-muted">You have no itineraries yet.</h3>
+            <p class="lead">Start planning your next adventure now!</p>
+            <a href="{% url 'create_itinerary' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-plus"></i> Create New Itinerary
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}
